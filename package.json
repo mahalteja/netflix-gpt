@@ -1,0 +1,22 @@
+{
+  "name": "netflix-gpt",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "source": "/public/index.html",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.7",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.7"
+  },
+  "devDependencies": {
+    "parcel": "^2.15.1"
+  }
+}
