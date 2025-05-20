@@ -1,8 +1,11 @@
-import React from 'react'
+import { Provider } from "react-redux";
+import Body from "./components/Body";
+import appStore from "./utils/appStore";
 
 export const App = () => {
   return (
-    <div className="text-green-500 ">App</div>
-
-  )
-}
+    <Provider store={appStore}>
+      <Body />
+    </Provider>
+  );
+};

@@ -1,5 +1,4 @@
 node_modules
 .parcel-cache
 dist
-README.md
 tailwind.config.js
