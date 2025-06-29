@@ -11,7 +11,41 @@ export const GET_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYjFkYTMwMTg2MWE2M2UzNWYyMjM0YzIzYzQzYzdmZSIsIm5iZiI6MTc0OTk2ODE4MS40NDMsInN1YiI6IjY4NGU2NTM1OTQzYTRmMDdjMTNkZjllZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jd5du9FCHCBIvhs_TWqWaNecnx18jp6ag0ZKlJ52Loc",
+    Authorization: "Bearer " + process.env.REACT_APP_GPT_TMDB_KEY,
   },
 };
+export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500";
+
+export const SUPPORTED_LANGUAGES = [
+  { identifier: "en", name: "English" },
+  { identifier: "hindi", name: "Hindi" },
+  { identifier: "spanish", name: "Spanish" },
+];
+
+export const HAMBURGER_ICON = (
+  <svg
+    className="w-5 h-5"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 17 14"
+  >
+    <path
+      stroke="white"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M1 1h15M1 7h15M1 13h15"
+    />
+  </svg>
+);
+
+export const SPINNER = (
+  <div
+    className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-white rounded-full"
+    role="status"
+    aria-label="loading"
+  >
+    <span className="sr-only">Loading...</span>
+  </div>
+);

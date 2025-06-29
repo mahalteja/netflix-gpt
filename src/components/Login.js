@@ -10,10 +10,11 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { SIGNIN_BACKGROUND_IMAGE, USER_AVATAR } from "../utils/constant";
+import { SIGNIN_BACKGROUND_IMAGE, SPINNER, USER_AVATAR } from "../utils/constant";
 const Login = () => {
   const [isSigin, setIsSignin] = useState(true);
   const [errMessage, setErrorMessage] = useState(null);
+  const[isLoading,setIsLoading]=useState(false)
   const navigate = useNavigate();
   const dispatch=useDispatch();
   const email = useRef(null);
@@ -22,10 +23,13 @@ const Login = () => {
   const user=useSelector(store=>store.user)
 
   const handleValidate = () => {
+    setIsLoading(true)
     const message = validateData(email.current.value, password.current.value);
+    if (message) setIsLoading(false);
     setErrorMessage(message);
     if (errMessage) return;
     if (!isSigin) {
+      
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
@@ -46,6 +50,7 @@ const Login = () => {
             })
             .catch((error) => {
               // An error occurred
+              setErrorMessage(error)
               
             });
         })
@@ -53,7 +58,8 @@ const Login = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
           // ..
-          setErrorMessage(errorCode + " " + errorMessage);
+          setErrorMessage(errorCode==="auth/email-already-in-use"? errorCode: "Server Not Found" );
+          setIsLoading(false)
         });
     } else {
       //Sign in
@@ -71,9 +77,12 @@ const Login = () => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log(errorCode,errMessage )
+          setErrorMessage(errorCode==="auth/invalid-credential"?"Invalid Credentials":"Server Not Found")
+          setIsLoading(false)
         });
+        
     }
+    setIsLoading(false)
   };
 
   const handleSignin = () => {
@@ -94,7 +103,7 @@ const Login = () => {
         <Header />
         <form
           onSubmit={(e) => e.preventDefault()}
-          className="my-32 flex flex-col w-[450px] gap-6 bg-[#000000b7] px-20 py-10 rounded-lg"
+          className="my-32 flex flex-col w-auto mx-4 box-border md:w-[450px] gap-6 bg-[#000000b7] px-8 md:px-20 py-10 rounded-lg"
         >
           <p className="text-white text-3xl font-semibold">
             {isSigin ? "Sign In" : "Sign Up"}
@@ -124,8 +133,9 @@ const Login = () => {
             type="submit"
             className="bg-red-600 p-4 text-white font-medium rounded-lg"
             onClick={handleValidate}
+            disabled={isLoading}
           >
-            {isSigin ? "Sign In" : "Sign Up"}
+            {isLoading ? SPINNER : isSigin ? "Sign In" : "Sign Up"}
           </button>
           <p className="text-white cursor-pointer" onClick={handleSignin}>
             {isSigin ? "New to Netflix? Sign Up" : "Already a user? Sign In"}

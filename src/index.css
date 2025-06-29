@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Hide scrollbar but still scrollable */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+
+.hamburger{
+  display: none;
+}
+
+@media (max-width:600px) {
+  .hamburger{
+    display: block;
+  }
+  .navbar{
+    flex-direction: column;
+  }
+  .logo-hamburger{
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nav-items{
+    display: none;
+    flex-direction: column;
+  }
+  .nav-items.active{
+    display: flex;
+  }
+}
